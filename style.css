@@ -1,0 +1,577 @@
+/* -------------------------------------------------------------------------- */
+/* 1. Reset และการตั้งค่าพื้นฐาน (Basic Setup)                               */
+/* -------------------------------------------------------------------------- */
+
+:root {
+    /* กำหนดสีหลัก */
+    --primary-color: #007bff; /* สีน้ำเงินสำหรับปุ่มหลัก */
+    --secondary-color: #6c757d; /* สีเทาสำหรับปุ่มรอง/ขอบ */
+    --danger-color: #dc3545; /* สีแดงสำหรับปุ่มลบ */
+    --background-color: #f8f9fa; /* สีพื้นหลังอ่อนมาก */
+    --card-background: #ffffff; /* สีพื้นหลังของการ์ด */
+    --text-color: #212529; /* สีข้อความหลัก */
+    --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. ส่วน Header และ Footer                                                 */
+/* -------------------------------------------------------------------------- */
+
+header {
+    text-align: center;
+    padding: 40px 0 20px 0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0 10px 0;
+    margin-top: 40px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.9em;
+    color: var(--secondary-color);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. แถบควบคุม (Controls: Search และ Categories)                             */
+/* -------------------------------------------------------------------------- */
+
+.controls {
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.search-container {
+    position: relative; /* เพื่อให้ปุ่มล้างจัดตำแหน่งได้ */
+    margin-bottom: 15px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 40px 12px 15px; /* เพิ่มพื้นที่ด้านขวาสำหรับปุ่ม */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    /* margin-bottom: 15px; <-- ลบออก หรือย้ายไปที่ search-container */
+}
+
+#clearSearchButton {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1; /* ปรับการจัดตำแหน่งให้ตรงกลาง */
+    opacity: 0.5; /* ทำให้ดูจางๆ */
+    transition: opacity 0.2s;
+}
+
+#clearSearchButton:hover {
+    opacity: 1;
+    color: var(--danger-color);
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.categories button {
+    background-color: var(--card-background);
+    color: var(--secondary-color);
+    border: 1px solid #ced4da;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.categories button:hover {
+    background-color: #e9ecef;
+}
+
+.categories button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. รายการเครื่องมือ (Tool List และ Tool Card)                               */
+/* -------------------------------------------------------------------------- */
+
+#tool-list {
+    display: grid;
+    /* แสดงผลเป็น 3 คอลัมน์บนหน้าจอใหญ่ */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    border-left: 5px solid var(--secondary-color); /* เส้นสีข้างสำหรับการ์ด */
+    transition: transform 0.3s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-3px); /* สร้างเอฟเฟกต์ยกขึ้นเล็กน้อย */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tool-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.tool-card p {
+    font-size: 0.95em;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+/* Tag สำหรับหมวดหมู่ */
+.tag {
+    display: inline-block;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* ปุ่มดำเนินการ (Action Buttons) */
+.actions {
+    margin-top: 15px;
+    border-top: 1px solid #e9ecef;
+    padding-top: 15px;
+    display: flex; /* จัดให้ปุ่มอยู่บรรทัดเดียวกัน */
+    gap: 10px; /* ระยะห่างระหว่างปุ่ม */
+    align-items: center;
+}
+
+/* สไตล์สำหรับลิงก์/ปุ่ม */
+.actions a, .actions button {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    display: inline-block;
+    cursor: pointer;
+    white-space: nowrap; /* ป้องกันข้อความในปุ่มหักบรรทัด */
+}
+
+/* สไตล์ปุ่มดาวน์โหลด */
+.btn-download {
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+    flex-grow: 1; /* ให้ปุ่มนี้ขยายออกไป */
+    text-align: center;
+}
+
+.btn-download:hover {
+    background-color: #0056b3;
+}
+
+/* สไตล์ปุ่มลบ (ใหม่) */
+.btn-delete {
+    background-color: var(--danger-color);
+    color: white;
+    border: 1px solid var(--danger-color);
+    transition: background-color 0.2s;
+    flex-grow: 0; /* ไม่ให้ปุ่มลบขยาย */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-detail { /* สไตล์นี้ไม่ได้ถูกใช้แล้ว แต่อยู่ในโค้ดเดิม */
+    background-color: var(--card-background);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-detail:hover {
+    background-color: #f1f1f1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. การปรับให้รองรับหน้าจอมือถือ (Responsive Design)                          */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    #tool-list {
+        /* บนมือถือให้แสดงเป็น 1 คอลัมน์ */
+        grid-template-columns: 1fr; 
+    }
+    .controls {
+        padding: 15px;
+    }
+    .actions {
+        /* บนมือถือให้ปุ่มอยู่ในคอลัมน์เพื่อให้กดง่ายขึ้น */
+        flex-direction: column; 
+        gap: 5px;
+    }
+    .actions a, .actions button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. สไตล์สำหรับ Form (Add Tool Form) - แก้ไขและจัดระเบียบ                 */
+/* -------------------------------------------------------------------------- */
+
+/* **แก้ไขข้อผิดพลาดในโค้ดเดิม: ลบ Selector ซ้ำซ้อนและวงเล็บปีกกาเกิน** */
+
+#addToolForm input[type="text"],
+#addToolForm input[type="url"],
+#addToolForm select,
+#categoryForm input[type="text"],
+#categoryForm input[type="number"] { /* เพิ่ม 2 บรรทัดนี้ */
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box; /* สำคัญมาก */
+    font-size: 1em;
+}
+
+#addToolForm button[type="submit"],
+#categoryForm button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#addToolForm button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 7. สไตล์สำหรับ Floating Action Button (FAB) และ Modal - ไม่ต้องแก้ไข        */
+/* -------------------------------------------------------------------------- */
+
+/* FAB Button */
+#fabButton {
+    position: fixed; /* ทำให้ลอยอยู่กับที่ */
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 2em;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000; /* ให้อยู่เหนือองค์ประกอบอื่นๆ */
+    transition: background-color 0.2s;
+}
+
+#fabButton:hover {
+    background-color: #0056b3;
+}
+
+/* Modal (Popup) */
+.modal {
+    display: none; /* ซ่อนไว้ตั้งแต่แรก */
+    position: fixed;
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* เปิดให้เลื่อนได้ถ้าเนื้อหาเยอะ */
+    background-color: rgba(0,0,0,0.4); /* พื้นหลังทึบแสง */
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    margin: 5% auto; /* อยู่กลางหน้าจอแนวตั้ง */
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%; /* ขนาดบนจอเล็ก */
+    max-width: 600px; /* จำกัดขนาดบนจอใหญ่ */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.close-button {
+    color: var(--secondary-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Reuse Form Styling */
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%; 
+        margin: 10% auto;
+    }
+    #fabButton {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.8em;
+    }
+}
+/* --- สไตล์สำหรับฟีเจอร์ใหม่ (Edit Button & Status Tag) --- */
+
+/* ปุ่มแก้ไข */
+.btn-edit {
+    background-color: var(--secondary-color); /* สีเทาสำหรับปุ่มรอง */
+    color: white;
+    border: 1px solid var(--secondary-color);
+    transition: background-color 0.2s;
+}
+
+.btn-edit:hover {
+    background-color: #5a6268;
+}
+
+/* ข้อมูลวันที่เพิ่ม */
+.date-info {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    border-top: 1px dashed #eee;
+}
+
+/* Tag สถานะ */
+.status-tag {
+    margin-left: 5px;
+    font-weight: bold;
+    /* สไตล์เริ่มต้น */
+    background-color: #ffc107; 
+    color: #212529;
+}
+
+/* สถานะ Stable (สีเขียว) */
+.status-stable {
+    background-color: #28a745;
+    color: white;
+}
+
+/* สถานะ Beta (สีน้ำเงิน/ฟ้าอ่อน) */
+.status-beta {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* สถานะ Archive (สีแดง/เทาเข้ม) */
+.status-archive {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* ปรับปรุง Actions Layout เพื่อรองรับ 3 ปุ่ม */
+.actions {
+    /* ใช้ flex-start เพื่อไม่ให้ปุ่มยืดจนสุด */
+    justify-content: flex-start; 
+    flex-wrap: wrap; /* ให้ขึ้นบรรทัดใหม่ได้บนมือถือ */
+}
+
+/* ปรับปรุงปุ่มลบและดาวน์โหลด (ใน style.css เดิม) */
+.actions a, .actions button {
+    flex-grow: 0; /* ป้องกันไม่ให้ปุ่มขยายเอง */
+    margin-right: 5px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+}
+/* --- สไตล์สำหรับ Status Filters ใหม่ --- */
+.status-filters {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.status-filters h4 {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.status-filters button {
+    /* ใช้สไตล์เดียวกับปุ่มหมวดหมู่ แต่ปรับสี Active */
+    background-color: var(--card-background);
+    color: var(--secondary-color);
+    border: 1px solid #ced4da;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 5px;
+}
+
+.status-filters button:hover {
+    background-color: #e9ecef;
+}
+
+/* สไตล์ Active ตามสถานะ */
+.status-filters button.status-active, 
+.status-filters button[data-status="Stable"].status-active {
+    background-color: #28a745; /* สีเขียว */
+    color: white;
+    border-color: #28a745;
+}
+.status-filters button[data-status="Beta"].status-active {
+    background-color: #17a2b8; /* สีน้ำเงิน/ฟ้า */
+    color: white;
+    border-color: #17a2b8;
+}
+.status-filters button[data-status="Archive"].status-active {
+    background-color: #6c757d; /* สีเทาเข้ม */
+    color: white;
+    border-color: #6c757d;
+}
+.status-filters button[data-status="all"].status-active {
+    background-color: var(--primary-color); 
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 8. สไตล์สำหรับ Dynamic Category Management (ใหม่)                           */
+/* -------------------------------------------------------------------------- */
+
+.category-icon-button {
+    /* ใช้คุณสมบัติคล้ายปุ่มหมวดหมู่ */
+    background-color: var(--card-background);
+    color: var(--secondary-color);
+    border: 1px solid #ced4da;
+    padding: 8px 10px; /* ลด Padding ให้เล็กลง */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 15px; /* เพิ่มระยะห่างจากปุ่มหมวดหมู่สุดท้าย */
+    font-weight: bold;
+    font-size: 1.1em; /* ขนาดไอคอน */
+    width: 40px; /* กำหนดความกว้างและความสูงให้เป็นวงกลม */
+    height: 40px;
+    display: flex; /* จัดไอคอนให้อยู่ตรงกลาง */
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* ป้องกันไม่ให้โดนบีบ */
+}
+
+.category-icon-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* --- สไตล์สำหรับรายการหมวดหมู่ใน Admin Modal --- */
+.category-admin-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category-admin-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.category-admin-list li:last-child {
+    border-bottom: none;
+}
+
+.category-admin-actions button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.category-admin-actions .btn-edit-cat {
+    background-color: #ffc107;
+    border: none;
+    color: var(--text-color);
+}
+
+.category-admin-actions .btn-delete-cat {
+    background-color: var(--danger-color);
+    border: none;
+    color: white;
+}
