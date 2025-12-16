@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>JADE-TOOLS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>🛠️ JADE-Tool-Vault-2025</h1>
+    </header>
+
+   <section class="controls">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="ค้นหาเครื่องมือทั้งหมด...">
+        <button id="clearSearchButton" class="clear-button" title="ล้างการค้นหาและตัวกรอง">✖</button>
+    </div>
+    
+    <div class="categories">
+        <button data-filter="all" class="active">ทั้งหมด</button>
+         <button id="manageCategoriesButton" class="category-icon-button" title="จัดการหมวดหมู่">
+        ⚙️
+    </button>
+    </div>
+   
+    <div class="status-filters">
+        <h4>สถานะเครื่องมือ:</h4>
+        <button data-status="all" class="status-active">ทั้งหมด</button>
+        <button data-status="Stable">Stable</button>
+        <button data-status="Beta">Beta</button>
+        <button data-status="Archive">Archive</button>
+    </div>
+    <div class="status-filters">
+        </div>
+
+</section>
+
+<main id="tool-list">
+
+</main>
+
+    <footer>
+        <p>&copy;MADE IN JADEJ3K</p>
+    </footer>
+
+
+    <script src="scripts.js"></script> 
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyByW2DeE3rywhlOhIiv1LwHhtRuIgYK4tQ",
+            authDomain: "jade-tool-vault-2025.firebaseapp.com",
+            projectId: "jade-tool-vault-2025",
+            storageBucket: "jade-tool-vault-2025.firebasestorage.app",
+            messagingSenderId: "113717439066",
+            appId: "1:113717439066:web:98763cbcb91ee472b94663"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(); // กำหนดตัวแปร db สำหรับ Firestore
+    </script>
+    
+    <button id="fabButton" title="เพิ่มเครื่องมือใหม่">+</button>
+
+<div id="addToolModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>+ เพิ่มเครื่องมือใหม่</h2>
+        <form id="addToolForm">
+            <input type="hidden" id="documentId" value=""> 
+
+            <input type="text" id="toolName" placeholder="ชื่อเครื่องมือ" required>
+            <input type="text" id="toolDesc" placeholder="คำอธิบายสั้นๆ" required>
+            <input type="url" id="toolLink" placeholder="ลิงก์ดาวน์โหลด (URL)" required>
+            
+            <select id="toolCategory" required>
+                <option value="" disabled selected>เลือกหมวดหมู่</option>
+                <option value="hardware">Hardware</option>
+                <option value="software">Software</option>
+                <option value="mobile">Mobile</option>
+                <option value="game">Game</option>
+            </select>
+            
+            <select id="toolStatus" required>
+                <option value="Stable">Stable (ใช้งานได้ดี)</option>
+                <option value="Beta">Beta (กำลังทดสอบ)</option>
+                <option value="Archive">Archive (เก่า/เลิกใช้)</option>
+            </select>
+            
+            <button type="submit">บันทึกเครื่องมือ</button>
+        </form>
+    </div>
+</div>
+
+<div id="categoryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closeCategoryModal">&times;</span>
+        <h2>จัดการหมวดหมู่</h2>
+        
+        <form id="categoryForm">
+            <input type="hidden" id="categoryId" value="">
+            
+            <input type="text" id="categoryName" placeholder="ชื่อหมวดหมู่ (เช่น Networking)" required>
+            <input type="text" id="categoryIDInput" placeholder="ID หมวดหมู่ (เช่น network)" required>
+            <input type="number" id="categoryOrder" placeholder="ลำดับการแสดงผล" value="10" required>
+            
+            <button type="submit" id="categorySubmitButton">บันทึกหมวดหมู่</button>
+        </form>
+
+        <hr style="margin: 20px 0;">
+        <h3>รายการหมวดหมู่ปัจจุบัน:</h3>
+        <ul id="currentCategoryList" class="category-admin-list">
+            </ul>
+    </div>
+</div>
+
+</body>
+</html>
