@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusButtons = document.querySelectorAll('.status-filters button');
     const resultCountDisplay = document.createElement('h4');
     resultCountDisplay.id = 'resultCountDisplay';
-    resultCountDisplay.style.margin = '20px auto';
+    resultCountDisplay.style.marginBottom = '20px';
+    resultCountDisplay.style.maxWidth = '1200px';
+    resultCountDisplay.style.margin = '20px auto 20px auto'; // margin auto ช่วยจัดกึ่งกลางแนวนอน
+    resultCountDisplay.style.textAlign = 'center'; // <<< เพิ่มบรรทัดนี้เข้าไปครับ
     toolList.parentNode.insertBefore(resultCountDisplay, toolList); 
     
     const fabButton = document.getElementById('fabButton');
